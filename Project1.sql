@@ -1,4 +1,5 @@
 
+drop table if exists reimbursement_updates;
 drop table if exists emplyee_permissions;
 drop table if exists reimbursements;
 drop table if exists employees; 
@@ -16,6 +17,7 @@ drop table if exists reimbursement_types;
 -- employees have 1 job title
 Create Table job_titles(
 	job_title_id		Integer,
+	job_title			varchar(30),
 	primary key(job_title_id)
 );
 
@@ -23,6 +25,12 @@ Create Table job_titles(
 Create Table employees (
 	employee_id 		Integer,
 	job_title_id		Integer,
+	first_name			varchar(30),
+	last_name			varchar(30),
+	email				varchar(30),
+	phone				varchar(30),
+	user_name			varchar(30),
+	user_password		varchar(30),
 	primary key(employee_id),	
 	Constraint fk_employees_titles Foreign Key(job_title_id) References job_titles(job_title_id)
 );
@@ -31,6 +39,7 @@ Create Table employees (
 -- since that would only be used if we could register employees, it is not included
 Create Table permissions (
 	permission_id		Integer,  
+	permission_type		varchar(30),
 	primary key(permission_id)
 );
 
@@ -47,33 +56,91 @@ Create Table emplyee_permissions(
 -- allows for multiple states, denied, approved, pending, approved pending payout, withheld
 Create Table reimbursement_statuss(
 	status_id		Integer,
+	status			varchar(30),
 	primary key(status_id)
 ) ;
 
 -- travel/hotel, food, work supplies, replacements, ect. would help with approval/denial option
 Create Table reimbursement_types(
-	type_id			Integer,
+	type_id				Integer,
+	reimbursement_type	varchar(30),		
 	primary key(type_id)
 );
 
-
+-- comment variables can be there own table as well, but that would be a little much for the scope of this project
 Create Table reimbursements(
 	reimbursement_id 	Integer generated always as identity,
 	employee_id			Integer not null,
 	status_id			Integer	not null,
 	type_id				Integer	not null,
+	date_of_transaction	date	not null,
+	amount				numeric	not null,
+	details				varchar(200),
 	primary key(reimbursement_id),
 	Constraint fk_reimbursements_reimbursement_types Foreign Key(type_id) References reimbursement_types(type_id),
 	Constraint fk_reimbursements_employees Foreign Key(employee_id) References employees(employee_id),
 	Constraint fk_reimbursements_reimbursement_statuss Foreign Key(status_id) References  reimbursement_statuss(status_id)
 );
 
+-- recordsd updates, date submitted and resalved goes here
+Create Table reimbursement_updates(
+	update_id			Integer generated always as identity,
+	reimbursement_id	Integer not null,
+	status_id			Integer not null,
+	update_comment		varchar(200),
+	date_of_update		date	not null,
+	primary key(update_id),
+	Constraint fk_update_reimbursement Foreign Key(reimbursement_id) References reimbursements(reimbursement_id),
+	Constraint fk_update_status Foreign Key(status_id) References reimbursement_statuss(status_id)
+);
+
 -- any extra tables added (if any) are only tangentially related and may simulate features of an production environment
 
 
+-- initial data, includes initial data
+insert into job_titles(job_title_id, job_title)
+	values  (1,'Finance manager'),
+			(2,'Associate'),
+			(3,'Sales Representative'), 
+			(4,'Human Relations');
+
+-- only reimbursment approve included atm, can add permission to claim reimbursment as well
+insert into permissions(permission_id,permission_type)
+	values	(1,'reimbursement approval');
+	
+
+insert into reimbursement_statuss(status_id, status)
+	values	(1,'new'),
+			(2,'approved'),
+			(3,'denied');
+	
+insert into reimbursement_types(type_id,reimbursement_type)
+	values	(1, 'travel'),
+			(2, 'office supplies'),
+			(3, 'repairs/maintenance'),
+			(4, 'equitment'),
+			(5, 'legal');
+			
+insert into employees(employee_id, job_title_id,first_name,last_name,email,phone,user_name,user_password)
+	values	(1,2,'normal','employee','normal.employee@busness.com','(123) 123-1234','1','1'),
+			(2,3,'sales','man','sales.man@busness.com','(123) 321-1234','2','2'),
+			(3,3,'sales','woman','sales.woman@busness.com','(123) 123-1231','3','3'),
+			(4,1,'mr','manager','mr.manager@busness.com','(123) 123-4567','4','4');
 
 
+insert into emplyee_permissions(employee_id, permission_id)
+	values	(4,1);
+	
+insert into reimbursements(employee_id,status_id,type_id,date_of_transaction,amount,details)
+	values	(2,2,1,'2020-01-10',150,'hotel'),
+			(2,2,1,'2020-01-10',30,'gas'),
+			(2,3,1,'2020-01-10',300,'fancy restraunt'),
+			(3,1,3,'2020-02-27',140,'replace broken chair'),
+			(1,2,4,'2020-02-25',1200,'ohh new machinery'),
+			(1,1,5,'2020-02-26',3000,'worker injury compensation hospital visit');
 
+
+--ran out of time for reimbursment updates initial data
 
 
 
