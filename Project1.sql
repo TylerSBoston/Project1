@@ -46,9 +46,10 @@ Create Table permissions (
 -- cant have the same employee to permission twice, can use seperate table + tracker variables to keep track of
 -- of when employees gain and lose employees which is out of scope
 Create Table emplyee_permissions(
-	employee_id 		Integer,
-	permission_id		Integer,
-	primary key(employee_id, permission_id),
+	employee_permission_id 	Integer generated always as identity,
+	employee_id 			Integer not null,
+	permission_id			Integer not null,
+	primary key(employee_permission_id),
 	Constraint fk_employees_p_employees Foreign Key(employee_id) References employees(employee_id),
 	Constraint fk_employees_p_permissions Foreign Key(permission_id) References permissions(permission_id)
 );
@@ -135,14 +136,22 @@ insert into reimbursements(employee_id,status_id,type_id,date_of_transaction,amo
 	values	(2,2,1,'2020-01-10',150,'hotel'),
 			(2,2,1,'2020-01-10',30,'gas'),
 			(2,3,1,'2020-01-10',300,'fancy restraunt'),
-			(3,1,3,'2020-02-27',140,'replace broken chair'),
 			(1,2,4,'2020-02-25',1200,'ohh new machinery'),
-			(1,1,5,'2020-02-26',3000,'worker injury compensation hospital visit');
+			(1,1,5,'2020-02-26',3000,'worker injury compensation hospital visit'),
+			(3,1,3,'2020-02-27',140,'replace broken chair');
 
 
---ran out of time for reimbursment updates initial data
-
-
+insert into reimbursement_updates(reimbursement_id,status_id,date_of_update,update_comment)
+	values	(1,1,'2020-01-14','reimbursement request submitted'),   --comment text can be changed for default comment
+			(2,1,'2020-01-14','reimbursement request submitted'),
+			(3,1,'2020-01-14','reimbursement request submitted'),
+			(1,2,'2020-01-16','approved'),
+			(2,2,'2020-01-16','approved'),
+			(3,2,'2020-01-16','denied, excessive cost'),
+			(4,1,'2020-02-25','reimbursement request submitted'),
+			(4,2,'2020-02-26','approved'),
+			(5,1,'2020-02-26','reimbursement request submitted'),
+			(6,1,'2020-02-27','reimbursement request submitted');
 
 
 
