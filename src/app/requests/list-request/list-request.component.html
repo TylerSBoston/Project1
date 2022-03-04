@@ -1,0 +1,111 @@
+<div>
+    <h3>Reimbursement Requests</h3>
+    <div>
+      <button type="button" class="btn btn-success" (click)="toggleAddForm()">Submit Request</button>
+      <div class="card m-5" *ngIf="toggleAdd">
+        <div class="card-header bg-success text-white">Submit Request</div>
+        <div  class="card-body">
+
+          <form>
+           
+            <div class="mb-3" >
+              <label for="dateOfTransaction" class="form-label">Transaction Date</label>
+              <input 
+              type="date" 
+              class="form-control" 
+              id="dateOfTransaction" placeholder="Enter Date Of Transaction" 
+              name="Transaction Date"
+              [(ngModel)]="newRequest.dateOfTransaction">
+            </div>
+            <div class="mb-3" >
+              <label for="employeeId" class="form-label">Employee Id</label>
+              <input 
+              type="email" 
+              class="form-control" 
+              id="employeeId" placeholder="Enter your Employee Id." 
+              name="employeeId"
+              [(ngModel)]="newRequest.employeeId">
+            </div>
+            <div class="form-check mb-3">
+              <label for="amount" class="form-label"> Transaction Amount</label>
+              <input 
+              type="text" 
+              class="form-control" 
+              id="amount" placeholder="Enter the transaction amount." 
+              name="amount"
+              [(ngModel)]="newRequest.amount">
+            </div>
+            <div class="form-check mb-3">
+              <label for="expense" class="form-label">Expense Type</label>
+              <input 
+              type="text" 
+              class="form-control" 
+              id="expense" placeholder="Enter the expense amount." 
+              name="expense"
+              [(ngModel)]="newRequest.expenseType">
+            </div>
+            <div class="form-check mb-3">
+              <label for="merchantName" class="form-label">Merchant Name</label>
+              <input 
+              type="text" 
+              class="form-control" 
+              id="merchantName" placeholder="Merchant Name" 
+              name="merchantName"
+              [(ngModel)]="newRequest.merchantName">
+            </div>
+          
+          </form>
+
+        </div>
+        <div class="card-footer bg-success"><button type="button" class="btn btn-light" (click)="addRequest()">SUBMIT</button></div>
+      </div>
+    </div>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Request Id</th>
+            <th>Date Submitted</th>
+            <th>Transaction Date</th>
+            <th>EmployeeId</th>
+            <th>Amount</th>
+            <th>Merchant</th>
+            <th>Status</th>
+            <th>Date Resolved</th>
+            <th>Edit</th>
+            <th>Delete</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor = "let request of allRequests" > 
+              <td>{{request.requestId}}</td>
+              <td>{{request.dateSubmitted}}</td>
+              <td>{{request.dateOfTransaction}}</td>
+              <td>{{request.employeeId}}</td>
+              <td>{{request.amount}}</td>
+              <td>{{request.merchantName}}</td>
+              <td>{{request.status}}</td>
+              <td>{{request.dateResolved}}</td>
+              
+              
+              <td><button 
+                type="button" 
+                class="btn btn-primary"
+                (click)="goToEditRequest(request.requestId)">
+                <i class="material-icons">edit</i>
+              </button></td>
+
+            
+              <td><button 
+                type="button" 
+                class="btn btn-danger" 
+                (click)="deleteRequest(request.requestId)"
+              ><i class="material-icons">delete</i></button></td>
+
+              
+          
+          </tr>
+      
+        </tbody>
+      </table>
+</div>
