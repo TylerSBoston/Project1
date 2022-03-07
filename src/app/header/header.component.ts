@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../user/auth.service';
-import { User } from '../user/user.model';
+import { AuthService } from '../employee/auth.service';
+
 
 @Component({
   selector: 'app-header',
@@ -16,11 +16,6 @@ export class HeaderComponent implements OnInit {
 
   isLoggedIn(): boolean{
     return this.authService.loggedIn;
-  }
-
-  getRole(): string{
-    let data: User = this.authService.retrieveUser();
-    return data.role
   }
 
 }

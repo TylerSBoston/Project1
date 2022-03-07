@@ -4,11 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ListRequestComponent } from "./requests/list-request/ListRequestComponent";
 import { HeaderComponent } from './header/header.component';
-import { EditRequestComponent } from './requests/edit-request/edit-request.component';
-import { LoginComponent } from './user/login/login.component';
-import { LogoutComponent } from './user/logout/logout.component';
+import { LoginComponent } from './employee/login/login.component';
+import { LogoutComponent } from './employee/logout/logout.component';
+import { EditReimbursementComponent } from './reimbursement/edit-reimbursement/edit-reimbursement.component';
+import { ListReimbursementComponent } from './reimbursement/list-reimbursement/list-reimbursement.component';
+
 
 
 
@@ -19,16 +20,11 @@ import { LogoutComponent } from './user/logout/logout.component';
 @NgModule({
   declarations: [
     AppComponent,
-    ListRequestComponent,
     HeaderComponent,
-    EditRequestComponent,
     LoginComponent,
-    LogoutComponent
-    
-   
-    
-  
-  
+    LogoutComponent,
+    EditReimbursementComponent,
+    ListReimbursementComponent
   ],
   imports: [
     BrowserModule,

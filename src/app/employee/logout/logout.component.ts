@@ -13,7 +13,7 @@ export class LogoutComponent implements OnInit {
 
   ngOnInit(): void {
     //destroy info in sessionStorage + mark person has logged out
-    this.authService.destroyUser();
+    this.authService.destroyEmployee();
     this.authService.loggedIn = false;
     this.router.navigate(['login']);
 

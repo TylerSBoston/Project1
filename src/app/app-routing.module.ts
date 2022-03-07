@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
-import { EditRequestComponent } from './requests/edit-request/edit-request.component';
-import { ListRequestComponent } from "./requests/list-request/ListRequestComponent";
-import { AuthGuardGuard } from './user/auth-guard.guard';
-import { LoginComponent } from './user/login/login.component';
-import { LogoutComponent } from './user/logout/logout.component';
+import { AuthGuard } from './employee/auth.guard';
+import { LoginComponent } from './employee/login/login.component';
+import { LogoutComponent } from './employee/logout/logout.component';
+import { ListReimbursementComponent } from './reimbursement/list-reimbursement/list-reimbursement.component';
+import { EditReimbursementComponent } from './reimbursement/edit-reimbursement/edit-reimbursement.component';
 
 
 const routes: Routes = [
  
-  {path: "list-request",component:ListRequestComponent, canActivate: [AuthGuardGuard]},
-  {path: "header", component: HeaderComponent, canActivate: [AuthGuardGuard]},
-  {path: "edit-request/:idParameter", component: EditRequestComponent, canActivate: [AuthGuardGuard]},
+  {path: "list-reimbursement",component:ListReimbursementComponent, canActivate: [AuthGuard]},
+  {path: "header", component: HeaderComponent, canActivate: [AuthGuard]},
+  {path: "edit-reimbursement/:idParameter", component: EditReimbursementComponent, canActivate: [AuthGuard]},
   {path: "login", component: LoginComponent},
   {path: "logout", component: LogoutComponent}
 

@@ -1,12 +1,12 @@
 <div class="container m-5">
     <div class="card-header bg-secondary text-white">Update Request</div>
-    <form #myFormTemplate = "ngForm" (ngSubmit)="updateRequest()">
+    <form #myFormTemplate = "ngForm" (ngSubmit)="updateReimbursementt()">
     <div  class="card-body">
 
       
         <div class="mb-3" >
-            <label for="requestId" class="form-label">Request ID:</label>
-           {{newRequest.requestId}}
+            <label for="reimbursementID" class="form-label">Request ID:</label>
+           {{newReimbursement.reimbursementID}}
           </div>
         <div class="mb-3" >
           <label for="dateOfTransaction" class="form-label">Transaction Date</label>
@@ -18,7 +18,7 @@
           required
           #myTransactionDate="ngModel"
           (change)= "test(myTransactionDate)"
-          [(ngModel)]="newRequest.dateOfTransaction">
+          [(ngModel)]="newReimbursement.dateOfTransaction">
           <div *ngIf="!myTransactionDate.valid" class="small text-danger">Transaction Date is required!</div>
         </div>
         <div class="mb-3" >
@@ -31,7 +31,7 @@
           required
           #myEmployeeId="ngModel"
           (change)= "test(myEmployeeId)"
-          [(ngModel)]="newRequest.employeeId">
+          [(ngModel)]="newReimbursement.employeeID">
           <div *ngIf="!myEmployeeId.valid" class="small text-danger">Employee ID is required!</div>
         </div>
         <div class="form-check mb-3">
@@ -44,7 +44,7 @@
           required
           #myAmount="ngModel"
           (change)= "test(myAmount)"
-          [(ngModel)]="newRequest.amount">
+          [(ngModel)]="newReimbursement.amount">
           <div *ngIf="!myAmount.valid" class="small text-danger">Amount required!</div>
         </div>
         <div class="form-check mb-3">
@@ -57,7 +57,7 @@
           required
           #myExpenseType="ngModel"
           (change)= "test(myExpenseType)"
-          [(ngModel)]="newRequest.expenseType">
+          [(ngModel)]="newReimbursement.expenseType">
           <div *ngIf="!myExpenseType.valid" class="small text-danger">Expense Type required!</div>
         </div>
         <div class="form-check mb-3">
@@ -70,7 +70,7 @@
           required
           #myMerchant="ngModel"
           (change)= "test(myMerchant)"
-          [(ngModel)]="newRequest.merchantName">
+          [(ngModel)]="newReimbursement.merchant">
           <div *ngIf="!myMerchant.valid" class="small text-danger">Merchant name required!</div>
         </div>
       
