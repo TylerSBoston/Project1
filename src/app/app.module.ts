@@ -9,6 +9,10 @@ import { LoginComponent } from './employee/login/login.component';
 import { LogoutComponent } from './employee/logout/logout.component';
 import { EditReimbursementComponent } from './reimbursement/edit-reimbursement/edit-reimbursement.component';
 import { ListReimbursementComponent } from './reimbursement/list-reimbursement/list-reimbursement.component';
+import { ViewEmployeesComponent } from './finance-manager-view/view-employees/view-employees.component';
+import { ViewReimbursementsComponent } from './finance-manager-view/view-reimbursements/view-reimbursements.component';
+import { FinanceManagerComponent } from './finance-manager-view/finance-manager/finance-manager.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -24,12 +28,16 @@ import { ListReimbursementComponent } from './reimbursement/list-reimbursement/l
     LoginComponent,
     LogoutComponent,
     EditReimbursementComponent,
-    ListReimbursementComponent
+    ListReimbursementComponent,
+    FinanceManagerComponent,
+    ViewEmployeesComponent,
+    ViewReimbursementsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule, 
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
