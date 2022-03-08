@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ManagerHttpReimbursementService } from './manager-http-reimbursement.service';
+import { ManagerHttpService } from './manager-http.service';
 
 describe('ManagerHttpReimbursementService', () => {
-  let service: ManagerHttpReimbursementService;
+  let service: ManagerHttpService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ManagerHttpReimbursementService);
+    service = TestBed.inject(ManagerHttpService);
   });
 
   it('should be created', () => {

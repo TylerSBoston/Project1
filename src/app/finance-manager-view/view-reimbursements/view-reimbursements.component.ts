@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Reimbursement } from 'src/app/reimbursement/reimbursement.model';
-import { ManagerHttpReimbursementService } from '../manager-http-reimbursement.service';
+import {  ManagerHttpService } from '../manager-http.service';
 
 @Component({
   selector: 'app-view-reimbursements',
@@ -13,7 +13,7 @@ export class ViewReimbursementsComponent implements OnInit {
 
   allReimbursements: Reimbursement[] = [];
 
-
+  newComment: string[] = [];
 
   newReimbursement: Reimbursement = {
     reimbursementID: 0,
@@ -31,35 +31,73 @@ export class ViewReimbursementsComponent implements OnInit {
     dateUpdated: ''
   }
 
-  constructor(private  MHRS:ManagerHttpReimbursementService, private router: Router) { }
+  constructor(private  MHRS:ManagerHttpService, private router: Router) { }
 
 
 
   ngOnInit(): void {
-    this.getAllReimbursements();
+    if(this.MHRS.employeeID == 0)
+    {
+      this.getAllReimbursements();
+    }
+    else
+    {
+      this.getEmployeeReimbursements(this.MHRS.employeeID);
+    }
   }
 
   getPendingReimbursements(){
     this.MHRS.getPendingReimbursements().subscribe((response)=>{
       this.allReimbursements = response;
+      this.newComment.length = response.length
+      this.MHRS.employeeID=0;
     });
   }
   getCompletedReimbursements(){
     this.MHRS.getCompletedReimbursements().subscribe((response)=>{
       this.allReimbursements = response;
+      this.newComment.length = response.length
+      this.MHRS.employeeID=0;
     });
   }
   getAllReimbursements(){
     this.MHRS.getAllReimbursements().subscribe((response)=>{
       console.log(response);
       this.allReimbursements = response;
+      this.newComment.length = response.length
+      this.MHRS.employeeID=0;
     });
   }
   
   getEmployeeReimbursements(employeeID: number){
     this.MHRS.getEmployeeReimbursements(employeeID).subscribe((response)=>{
       this.allReimbursements = response;
+      this.newComment.length = response.length
     });
+  }
+
+  updateReimbursement(reimbursement: Reimbursement, status: number, comment: string){
+      reimbursement.statusID = status;
+      
+      if(comment == '')
+      {
+        if(status == 4)
+        {
+          reimbursement.currentComment = 'approved'
+        }
+        else if(status == 5)
+        {
+          reimbursement.currentComment = 'denied'
+        }
+      }
+      else
+      {
+        reimbursement.currentComment= comment;
+      }
+      this.MHRS.updateReimbursement(reimbursement).subscribe((response)=>{
+        this.newReimbursement = response;
+      });
+
   }
 
 
