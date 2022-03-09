@@ -13,14 +13,14 @@ import { ViewEmployeesComponent } from './finance-manager-view/view-employees/vi
 
 const routes: Routes = [
  
-  {path: "list-reimbursement",component:ListReimbursementComponent, canActivate: [AuthGuard]},
-  {path: "header", component: HeaderComponent, canActivate: [AuthGuard]},
+  {path: "list-reimbursement",component:ListReimbursementComponent},
+  {path: "header", component: HeaderComponent},
   {path: "edit-reimbursement/:idParameter", component: EditReimbursementComponent, canActivate: [AuthGuard]},
   {path: "login", component: LoginComponent},
   {path: "logout", component: LogoutComponent},
-  {path: "managerView", component:FinanceManagerComponent},
-  {path: "managerViewReimbursements", component:ViewReimbursementsComponent},
-  {path: "managerViewEmployees", component:ViewEmployeesComponent}
+  {path: "managerView", component:FinanceManagerComponent, canActivate: [AuthGuard], data: {role: '1'}},
+  {path: "managerViewReimbursements", component:ViewReimbursementsComponent, canActivate: [AuthGuard], data: {role: '1'}},
+  {path: "managerViewEmployees", component:ViewEmployeesComponent, canActivate: [AuthGuard], data: {role: '1'}}
 
   //prefix with colon to tell its a route parameter
   

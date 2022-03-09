@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
 
   validateUser(){
     let returnEmployee: Employee = this.employeeService.validateUser(this.newEmployee);
-    if(returnEmployee.email == ""){
+    if(returnEmployee.userName == ""){
       //invalid user
       this.errorMessage = "Invalid Input!!!"
     }else{

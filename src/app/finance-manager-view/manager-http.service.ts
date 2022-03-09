@@ -35,7 +35,7 @@ export class ManagerHttpService {
   getAllEmployees(): Observable<Employee[]>{
 
 
-    return this.http.get<Employee[]>("http://localhost:4040/AllEmployees")
+    return this.http.get<Employee[]>("http://localhost:4040/AllEmployeesManagerView")
 
   }
 

@@ -1,11 +1,30 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Employee } from './employee.model';
+import { Role } from './role.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
+
+  loggedInEmployee: Employee = {
+    employeeID: 0,
+    firstName: '',
+    lastName: '',
+    userName: '',
+    fullName: '',
+    jobTitle: '',
+    email: '',
+    phone: '',
+    roles: [],
+    password: ''
+  }
+
+  // hear for future conversion to object relation model
+  loggedInEmployeeRoles: Role[] = []
+
+
 
   constructor(private authService: AuthService) {}
 
