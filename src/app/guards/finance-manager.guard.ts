@@ -11,18 +11,9 @@ export class FinanceManagerGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {    
+      return this.authService.loggedInPermissions.has(1);
 
-
-          
-      if(this.authService.loggedInPermissions.has(1))
-      {
-        return true;
-      }
-      else{
-        return false;
-      }
   }
   
 }

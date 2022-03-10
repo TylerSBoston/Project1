@@ -24,57 +24,56 @@ export class EmployeeHttpService {
   }
 
  
-  
-  loggedInEmployeeRoles = new Map();   
+    
   constructor(private http: HttpClient, private authService: AuthService,private router: Router) { }
 
 
-  login(employee: Employee): Observable<Employee>{
+  async login(employee: Employee): Promise<Observable<Employee>>{
 
-    return this.http.post<Employee>("http://localhost:4040/Login",JSON.stringify(employee));
+    return await this.http.post<Employee>("http://localhost:4040/Login",await JSON.stringify(await employee));
   }
 
   async validateLogin(newEmployee: Employee): Promise<Employee>{
 
-   await this.loggedInEmployeeRoles.clear();
+    
     //feel like I can do this in the login 
-   await this.login(newEmployee).subscribe((response)=>{
+    // everything in here to try and fix async issues, probably not the best way to do it.
+    (await this.login(newEmployee)).subscribe(async (response) => {
+      this.authService.loggedInPermissions.clear();
       this.loggedInEmployee = response;
-      this.loggedInEmployee.roles.forEach(role => {
-        this.loggedInEmployeeRoles.set(role.roleID,role.role)
+      this.loggedInEmployee.roles.forEach(async (role) => {
+       this.authService.loggedInPermissions.set(role.roleID,role.role);
       });
+      this.authService.storeEmployee( newEmployee);
+      if (this.loggedInEmployee.employeeID != 0 ){
+        //user has logged in as admin
+        //store user info in browser and mark that we have logged in
+        if(this.authService.loggedInPermissions.has(1) ==  true)
+        {
+        await  this.router.navigate(['managerView']);
+        }
+        else if(this.authService.loggedInPermissions.has(0) == true)
+        {
+        await  this.router.navigate(['list-reimbursement']);
+        }
+      }  
+      else 
+      {
+        this.loggedInEmployee ={   
+         employeeID: 0,
+        firstName: '',
+        lastName: '',
+        userName: '',
+        fullName: '',
+        jobTitle: '',
+        email: '',
+        phone: '',
+        roles: [],
+        password: ''
+        }
+        this.authService.destroyEmployee();
+      }
     });
-
-     if (this.loggedInEmployee.employeeID != 0 ){
-      //user has logged in as admin
-      //store user info in browser and mark that we have logged in
-    await  this.authService.storeEmployee(newEmployee);
-    this.authService.loggedInPermissions =await this.loggedInEmployeeRoles;
-      if(this.loggedInEmployeeRoles.has(1))
-      {
-      await  this.router.navigate(['managerView']);
-      }
-      else if(this.loggedInEmployeeRoles.has(0))
-      {
-      await  this.router.navigate(['list-reimbursement']);
-      }
-    }  
-    else 
-    {
-      this.loggedInEmployee = await{   
-       employeeID: 0,
-      firstName: '',
-      lastName: '',
-      userName: '',
-      fullName: '',
-      jobTitle: '',
-      email: '',
-      phone: '',
-      roles: [],
-      password: ''
-      }
-      this.authService.destroyEmployee();
-    }
     return await newEmployee;
   }
 

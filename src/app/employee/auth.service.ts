@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Employee } from './employee.model';
+import { Role } from './role.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,21 +12,23 @@ export class AuthService {
   loggedInPermissions = new Map();
 
   async storeEmployee(employee: Employee){
-    await sessionStorage.setItem("employeeInfo", JSON.stringify(employee));
-    this.loggedIn = true;
+    await sessionStorage.setItem("employeeInfo", await JSON.stringify(employee));
+    this.loggedIn = await true;
   }
+  
 
   async retrieveEmployee(): Promise<Employee>{
     let data: any = await sessionStorage.getItem("employeeInfo");
-    this.loggedIn = true;
-    return JSON.parse(data);
+    this.loggedIn = await true;
+    return await JSON.parse(await data);
     
 
   }
 
   async destroyEmployee(){
-    await sessionStorage.removeItem("userInfo");
-    this.loggedIn =await false;
+    sessionStorage.clear();
+    this.loggedIn = await false;
     await this.loggedInPermissions.clear();
+    
   }
 }
