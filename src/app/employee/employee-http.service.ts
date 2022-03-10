@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Employee } from './employee.model';
@@ -25,35 +26,42 @@ export class EmployeeHttpService {
  
   
   loggedInEmployeeRoles = new Map();   
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient, private authService: AuthService,private router: Router) { }
 
 
   login(employee: Employee): Observable<Employee>{
 
-    //backend technicly uses an update and insert.
-    return this.http.post<Employee>("http://localhost:4040//Login",JSON.stringify(employee))
+    return this.http.post<Employee>("http://localhost:4040/Login",JSON.stringify(employee));
   }
 
-  validateLogin(newEmployee: Employee): Employee{
+  async validateLogin(newEmployee: Employee): Promise<Employee>{
 
-    this.loggedInEmployeeRoles.clear();
+   await this.loggedInEmployeeRoles.clear();
     //feel like I can do this in the login 
-    this.login(newEmployee).subscribe((response)=>{
+   await this.login(newEmployee).subscribe((response)=>{
       this.loggedInEmployee = response;
       this.loggedInEmployee.roles.forEach(role => {
         this.loggedInEmployeeRoles.set(role.roleID,role.role)
       });
     });
 
-    if (this.loggedInEmployee.employeeID != 0 ){
+     if (this.loggedInEmployee.employeeID != 0 ){
       //user has logged in as admin
       //store user info in browser and mark that we have logged in
-      this.authService.storeEmployee(newEmployee);
-      this.authService.loggedInPermissions = this.loggedInEmployeeRoles;
+    await  this.authService.storeEmployee(newEmployee);
+    this.authService.loggedInPermissions =await this.loggedInEmployeeRoles;
+      if(this.loggedInEmployeeRoles.has(1))
+      {
+      await  this.router.navigate(['managerView']);
+      }
+      else if(this.loggedInEmployeeRoles.has(0))
+      {
+      await  this.router.navigate(['list-reimbursement']);
+      }
     }  
     else 
     {
-      this.loggedInEmployee = {   
+      this.loggedInEmployee = await{   
        employeeID: 0,
       firstName: '',
       lastName: '',
@@ -67,7 +75,7 @@ export class EmployeeHttpService {
       }
       this.authService.destroyEmployee();
     }
-    return newEmployee;
+    return await newEmployee;
   }
 
 

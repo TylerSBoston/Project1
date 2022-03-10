@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { EmployeeHttpService } from '../employee-http.service';
 import { Employee } from '../employee.model';
-import { EmployeeService } from '../employee.service';
 
 @Component({
   selector: 'app-login',
@@ -24,26 +24,21 @@ export class LoginComponent implements OnInit {
   }
 
   errorMessage: string = "";
-  constructor(private employeeService: EmployeeService, private router: Router) { }
+  constructor(private employeeHttpService: EmployeeHttpService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  validateUser(){
-    let returnEmployee: Employee = this.employeeService.validateUser(this.newEmployee);
-    if(returnEmployee.userName == ""){
+  async validateUser(){
+    let returnEmployee: Employee  = await this.employeeHttpService.validateLogin(this.newEmployee);
+    if(returnEmployee.fullName == ""){
       //invalid user
-      this.errorMessage = "Invalid Input!!!"
+      this.errorMessage =await "Invalid Input!!!"
+      
     }else{
       //Logged in 
-      if(returnEmployee.userName=="admin"){
-        //navigate to list-request
-        this.router.navigate(['list-reimbursement']) 
-
-      }else{
-      //  this.router.navigate(['reimbursement-crud'])
-
-      }
+      this.errorMessage =await "";
+      await this.router.navigate(['managerView']);
       console.log("Logged in ");
     }
   }

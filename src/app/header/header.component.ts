@@ -17,5 +17,8 @@ export class HeaderComponent implements OnInit {
   isLoggedIn(): boolean{
     return this.authService.loggedIn;
   }
+  isValid(role: number): boolean {
+    return this.authService.loggedInPermissions.has(role);
+  }
 
 }

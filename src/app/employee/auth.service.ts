@@ -5,27 +5,27 @@ import { Employee } from './employee.model';
   providedIn: 'root'
 })
 export class AuthService {
-
+  //await spam, see if that fixes things
   loggedIn: boolean = false;
 
   loggedInPermissions = new Map();
 
-  storeEmployee(employee: Employee): void{
-    sessionStorage.setItem("employeeInfo", JSON.stringify(employee));
+  async storeEmployee(employee: Employee){
+    await sessionStorage.setItem("employeeInfo", JSON.stringify(employee));
     this.loggedIn = true;
   }
 
-  retrieveEmployee(): Employee{
-    let data: any = sessionStorage.getItem("employeeInfo");
+  async retrieveEmployee(): Promise<Employee>{
+    let data: any = await sessionStorage.getItem("employeeInfo");
     this.loggedIn = true;
     return JSON.parse(data);
     
 
   }
 
-  destroyEmployee(): void {
-    sessionStorage.removeItem("userInfo");
-    this.loggedIn = false;
-    this.loggedInPermissions.clear();
+  async destroyEmployee(){
+    await sessionStorage.removeItem("userInfo");
+    this.loggedIn =await false;
+    await this.loggedInPermissions.clear();
   }
 }
