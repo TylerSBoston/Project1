@@ -23,6 +23,35 @@ deleteEmployee(employeeID: number): Observable<Employee>{
  
 }
 
+addEmployee(employeeModel: Employee): Observable<Employee>{
+
+  return this.http.post<Employee>("http://localhost:4040/AddEmployees", JSON.stringify(employeeModel));
+
+
+}
+
+updateEmployee(employeeModel: Employee): Observable<Employee> {
+  return this.http.put<Employee>("http://localhost:4040/UpdateEmployees", JSON.stringify(employeeModel));
+ 
+}
+
+fetchAEmployee(employeeId: number): Observable<Employee> {
+  return this.http.get<Employee>("http://localhost:4040/AllEmployees/{bid}"+employeeId);
+}
+
+
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+
 
 
 fetchAllReimbursements(): Observable<Reimbursement[]>{

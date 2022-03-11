@@ -9,55 +9,47 @@
           <form>
            
             <div class="mb-3" >
-              <label for="dateOfTransaction" class="form-label">Transaction Date</label>
+              <label for="fullName" class="form-label">Enter Name</label>
               <input 
-              type="date" 
+              type="text" 
               class="form-control" 
-              id="dateOfTransaction" placeholder="Enter Date Of Transaction" 
-              name="Transaction Date"
-              [(ngModel)]="newReimbursement.dateOfTransaction">
+              id="fullName" placeholder="Enter your Name" 
+              name="fullName"
+              [(ngModel)]="newEmployee.fullName">
             </div>
             <div class="mb-3" >
-              <label for="employeeID" class="form-label">Employee Id</label>
+              <label for="lastName" class="form-label">Last Name</label>
+              <input 
+              type="text" 
+              class="form-control" 
+              id="lastName" placeholder="Enter your Last Name" 
+              name="lastName"
+              [(ngModel)]="newEmployee.lastName">
+            </div>
+            <div class="form-check mb-3">
+              <label for="email" class="form-label"> Email</label>
               <input 
               type="email" 
               class="form-control" 
-              id="employeeID" placeholder="Enter your Employee Id." 
-              name="employeeID"
-              [(ngModel)]="newReimbursement.employeeID">
+              id="email" placeholder="Enter your email." 
+              name="email"
+              [(ngModel)]="newEmployee.email">
             </div>
             <div class="form-check mb-3">
-              <label for="amount" class="form-label"> Transaction Amount</label>
+              <label for="phone" class="form-label">phone</label>
               <input 
-              type="text" 
+              type="tel" 
               class="form-control" 
-              id="amount" placeholder="Enter the transaction amount." 
-              name="amount"
-              [(ngModel)]="newReimbursement.amount">
+              id="phone" placeholder="Phone Number" 
+              name="phone"
+              [(ngModel)]="newEmployee.phone">
             </div>
-            <div class="form-check mb-3">
-              <label for="expense" class="form-label">Expense Type</label>
-              <input 
-              type="text" 
-              class="form-control" 
-              id="expense" placeholder="Enter the expense amount." 
-              name="expense"
-              [(ngModel)]="newReimbursement.expenseType">
-            </div>
-            <div class="form-check mb-3">
-              <label for="merchantName" class="form-label">Merchant Name</label>
-              <input 
-              type="text" 
-              class="form-control" 
-              id="merchantName" placeholder="Merchant Name" 
-              name="merchantName"
-              [(ngModel)]="newReimbursement.merchant">
-            </div>
+           
           
           </form>
 
         </div>
-        <div class="card-footer bg-success"><button type="button" class="btn btn-light" (click)="addReimbursement()">SUBMIT</button></div>
+        <div class="card-footer bg-success"><button type="button" class="btn btn-light" (click)="addEmployee()">SUBMIT</button></div>
       </div>
     </div>
     <table class="table table-striped">

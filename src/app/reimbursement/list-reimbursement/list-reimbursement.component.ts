@@ -118,12 +118,15 @@ export class ListReimbursementComponent implements OnInit {
     this.router.navigate(['edit-reimbursement',reimbursementID]);
   }
 
+  
+
 
 
 
   deleteEmployee(employeeID: number) {
   this.reimbursementService.deleteEmployee(employeeID).subscribe((response)=>{
     console.log(response);
+   
     this.loadEmployees();
 
   });
@@ -131,19 +134,25 @@ export class ListReimbursementComponent implements OnInit {
   }
 
   addEmployee(){
-    let addNewEmployee: Employee = {
-      employeeID: this.newEmployee.employeeID,
-      email: this.newEmployee.email,
-      password: this.newEmployee.password,
-      firstName: this.newEmployee.firstName,
-      lastName: this.newEmployee.lastName,
-      phone: this.newEmployee.phone,
-      userName: this.newEmployee.userName,
-      fullName: this.newEmployee.fullName,
-      jobTitle: this.newEmployee.jobTitle,
-      roles: this.newEmployee.roles
+    this.reimbursementService.addEmployee(this.newEmployee).subscribe((response)=>{
+      console.log(response);
+      this.newEmployee = {
+        employeeID: 0,
+        firstName: '',
+        lastName: '',
+        userName: '',
+        fullName: '',
+        jobTitle: '',
+        email: '',
+        phone: '',
+        roles: [],
+        password: ''
+      }
+      this.loadEmployees();
+    })
+    
 
-    };
+    
     
   }
 
