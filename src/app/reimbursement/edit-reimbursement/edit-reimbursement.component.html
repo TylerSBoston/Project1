@@ -1,78 +1,52 @@
 <div class="container m-5">
     <div class="card-header bg-secondary text-white">Update Request</div>
-    <form #myFormTemplate = "ngForm" (ngSubmit)="updateReimbursementt()">
+    <form #myFormTemplate = "ngForm" (ngSubmit)="updateEmployee()">
     <div  class="card-body">
 
       
         <div class="mb-3" >
-            <label for="reimbursementID" class="form-label">Request ID:</label>
-           {{newReimbursement.reimbursementID}}
+            <label for="employeeID" class="form-label">Employee ID:</label>
+           {{newEmployee.employeeID}}
           </div>
         <div class="mb-3" >
-          <label for="dateOfTransaction" class="form-label">Transaction Date</label>
+          <label for="fullName" class="form-label">fullName</label>
           <input 
-          type="date" 
+          type="text" 
           class="form-control" 
-          id="dateOfTransaction" placeholder="Enter Date Of Transaction" 
-          name="Transaction Date"
+          id="fullName" placeholder="Enter fullName" 
+          name="fullName"
           required
-          #myTransactionDate="ngModel"
-          (change)= "test(myTransactionDate)"
-          [(ngModel)]="newReimbursement.dateOfTransaction">
-          <div *ngIf="!myTransactionDate.valid" class="small text-danger">Transaction Date is required!</div>
+          #fullName="ngModel"
+          (change)= "test(fullName)"
+          [(ngModel)]="newEmployee.fullName">
+          <div *ngIf="!fullName.valid" class="small text-danger">fullName is required!</div>
         </div>
         <div class="mb-3" >
-          <label for="employeeId" class="form-label">Employee Id</label>
+          <label for="email" class="form-label">email</label>
           <input 
           type="email" 
           class="form-control" 
-          id="employeeId" placeholder="Enter your Employe Id." 
-          name="employeeId"
+          id="email" placeholder="Enter your email." 
+          name="email"
           required
-          #myEmployeeId="ngModel"
-          (change)= "test(myEmployeeId)"
-          [(ngModel)]="newReimbursement.employeeID">
-          <div *ngIf="!myEmployeeId.valid" class="small text-danger">Employee ID is required!</div>
+          #myEmail="ngModel"
+          (change)= "test(myEmail)"
+          [(ngModel)]="newEmployee.email">
+          <div *ngIf="!myEmail.valid" class="small text-danger">Email is required!</div>
         </div>
         <div class="form-check mb-3">
-          <label for="amount" class="form-label"> Transaction Amount</label>
+          <label for="phone" class="form-label">phone</label>
           <input 
-          type="text" 
+          type="tel" 
           class="form-control" 
-          id="amount" placeholder="Enter the transaction amount." 
-          name="amount"
-          required
-          #myAmount="ngModel"
-          (change)= "test(myAmount)"
-          [(ngModel)]="newReimbursement.amount">
-          <div *ngIf="!myAmount.valid" class="small text-danger">Amount required!</div>
+          id="phone" placeholder="Enter phone number." 
+          name="phone"
+          #myPhone="ngModel"
+          (change)= "test(myPhone)"
+          [(ngModel)]="newEmployee.phone">
+          <div *ngIf="!myPhone.valid" class="small text-danger">Phone Number </div>
         </div>
-        <div class="form-check mb-3">
-          <label for="expense" class="form-label">Expense Type</label>
-          <input 
-          type="text" 
-          class="form-control" 
-          id="expense" placeholder="Enter the expense amount." 
-          name="expense"
-          required
-          #myExpenseType="ngModel"
-          (change)= "test(myExpenseType)"
-          [(ngModel)]="newReimbursement.expenseType">
-          <div *ngIf="!myExpenseType.valid" class="small text-danger">Expense Type required!</div>
-        </div>
-        <div class="form-check mb-3">
-          <label for="merchantName" class="form-label">Merchant Name</label>
-          <input 
-          type="text" 
-          class="form-control" 
-          id="merchantName" placeholder="Merchant Name" 
-          name="merchantName"
-          required
-          #myMerchant="ngModel"
-          (change)= "test(myMerchant)"
-          [(ngModel)]="newReimbursement.merchant">
-          <div *ngIf="!myMerchant.valid" class="small text-danger">Merchant name required!</div>
-        </div>
+        
       
      
 
