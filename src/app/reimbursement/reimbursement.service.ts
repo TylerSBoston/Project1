@@ -1,123 +1,53 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Employee } from '../employee/employee.model';
 import { Reimbursement } from './reimbursement.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReimbursementService {
+
+
   
-  allReimbursements: Reimbursement[] = [
-    {
-    reimbursementID: 1,
-    dateSubmitted: "",
-    dateOfTransaction: "",
-    employeeID: 0,
-    expenseType: "Lodging",
-    amount: 500,
-    status: "pending",
-    dateUpdated: "",
-    merchant: "Expedia",
-    statusID: 0,
-    details: "",
-    currentComment: "",
-    employee: ""
+//working with http client, manually include HttpClientMOdule int app.module.ts
+constructor(private http: HttpClient) { }
 
-  },
-  {
-    reimbursementID: 2,
-    dateSubmitted: "",
-    dateOfTransaction: "",
-    employeeID: 0,
-    expenseType: "Food",
-    amount: 50,
-    status: "pending",
-    dateUpdated: "",
-    merchant: "Subway",
-    statusID: 0,
+fetchAllEmployees(): Observable<Employee[]>{
+  return this.http.get<[]>("http://localhost:4040/AllEmployees");
+}
 
-    details: "",
-    currentComment: "",
-    employee: ""
-  },
-  {
-    reimbursementID: 3,
-    dateSubmitted: "",
-    dateOfTransaction: "",
-    employeeID: 0,
-    expenseType: "Lodging",
-    amount: 250,
-    status: "pending",
-    dateUpdated: "",
-    merchant: "Expedia",
-    statusID: 0,
-
-    details: "",
-    currentComment: "",
-    employee: ""
-  }
+deleteEmployee(employeeID: number): Observable<Employee>{
+  return this.http.delete<Employee>("http://localhost:4040/DeleteEmployees/{bid}S"+employeeID);
  
+}
 
-  ];
 
-  constructor() { }
 
-  fetchAllReimbursements(): Reimbursement[]{
-    return this.allReimbursements;
-  }
+fetchAllReimbursements(): Observable<Reimbursement[]>{
+  return this.http.get<Reimbursement[]>("http://localhost:4040/AllEmployees");
+}
 
-  deleteReimbursement(reimbursementID: number): Reimbursement[]{
-    console.log(reimbursementID);
-    for (let i = 0; i<this.allReimbursements.length; i++){
-      if(this.allReimbursements[i].reimbursementID == reimbursementID){
-        this.allReimbursements.splice(i,1);
-        break;
-      }
-    }
-    return this.allReimbursements
-  }
-
-  addReimbursement(reimbursementModel: Reimbursement): Reimbursement{
-    let newReimbursementID: number = this.allReimbursements[this.allReimbursements.length-1].reimbursementID + 1; 
-    reimbursementModel.reimbursementID = newReimbursementID;
-    this.allReimbursements.push(reimbursementModel);
-    return reimbursementModel;
-
-  }
-
-  updateReimbursement(reimbursementModel: Reimbursement):  Reimbursement{
-   
-    for (let i = 0; i<this.allReimbursements.length; i++){
-      if(this.allReimbursements[i].reimbursementID == reimbursementModel.reimbursementID){
-        this.allReimbursements[i]= reimbursementModel;
-        break;
-      }
-    }
-    return reimbursementModel;
-  }
-
-  fetchAReimbursement(reimbursementID: number): Reimbursement{
+deleteReimbursement(reimbursementId: number): Observable<Reimbursement>{
+  return this.http.delete<Reimbursement>("http://localhost:4040/DeleteEmployees/{bid}S"+reimbursementId);
  
-    for (let i = 0; i<this.allReimbursements.length; i++){
-      if(this.allReimbursements[i].reimbursementID == reimbursementID){
-        return this.allReimbursements[i];
-      }
-    }
-    return {
-      reimbursementID: 0,
-      dateSubmitted: "",
-      dateOfTransaction: "",
-      employeeID: 0,
-      expenseType: "Lodging",
-      amount: 250,
-      status: "pending",
-      dateUpdated: "",
-      merchant: "Expedia",
-      statusID: 0,
-  
-      details: "",
-      currentComment: "",
-      employee: ""
-    };
-  }
+}
+
+addReimbursement(reimbursementModel: Reimbursement): Observable<Reimbursement>{
+
+  return this.http.post<Reimbursement>("http://localhost:4040/AddEmployees", JSON.stringify(reimbursementModel));
+
+
+}
+
+updateReimbursement(reimbursementModel: Reimbursement): Observable<Reimbursement> {
+  return this.http.put<Reimbursement>("http://localhost:4040/UpdateEmployees", JSON.stringify(reimbursementModel));
+ 
+}
+
+fetchAReimbursement(reimbursementId: number): Observable<Reimbursement> {
+  return this.http.get<Reimbursement>("http://localhost:4040/AllEmployees/{bid}"+reimbursementId);
+}
 
 }

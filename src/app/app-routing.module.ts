@@ -22,6 +22,7 @@ const routes: Routes = [
   {path: "managerView", component:FinanceManagerComponent, canActivate: [FinanceManagerGuard]},
   {path: "managerViewReimbursements", component:ViewReimbursementsComponent, canActivate: [FinanceManagerGuard]},
   {path: "managerViewEmployees", component:ViewEmployeesComponent, canActivate: [FinanceManagerGuard]}
+  
 
   //prefix with colon to tell its a route parameter
   

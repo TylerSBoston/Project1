@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { EmployeeHttpService } from 'src/app/employee/employee-http.service';
+import { Employee } from 'src/app/employee/employee.model';
 import { Reimbursement } from '../reimbursement.model';
 import { ReimbursementService } from '../reimbursement.service';
+
 
 @Component({
   selector: 'app-list-reimbursement',
@@ -11,6 +14,7 @@ import { ReimbursementService } from '../reimbursement.service';
 export class ListReimbursementComponent implements OnInit {
 
   allReimbursements: Reimbursement[] = [];
+  allEmployees: Employee[] = [];
 
   toggleAdd: boolean = false;
 
@@ -31,11 +35,26 @@ export class ListReimbursementComponent implements OnInit {
     employee: ""
   };
 
+  newEmployee: Employee = {
+    employeeID: 0,
+    firstName: '',
+    lastName: '',
+    userName: '',
+    fullName: '',
+    jobTitle: '',
+    email: '',
+    phone: '',
+    roles: [],
+    password: ''
+  };
+
+  
 
 
 
 
-  constructor(private reimbursementService: ReimbursementService, private router: Router) {
+
+  constructor(private reimbursementService: ReimbursementService, private router: Router,private employeeService: EmployeeHttpService) {
   }
 
   oneReimbursement: Reimbursement = {
@@ -55,12 +74,33 @@ export class ListReimbursementComponent implements OnInit {
     employee: ""
   };
 
+  oneEmployee: Employee = {
+    employeeID: 0,
+    firstName: '',
+    lastName: '',
+    userName: '',
+    fullName: '',
+    jobTitle: '',
+    email: '',
+    phone: '',
+    roles: [],
+    password: ''
+  };
+
 
 
 
 
   ngOnInit(): void {
-    this.allReimbursements = this.reimbursementService.fetchAllReimbursements();
+    this.loadEmployees();}
+
+    loadEmployees(){
+    this.reimbursementService.fetchAllEmployees().subscribe((response)=>{
+      console.log(response);
+      this.allEmployees = response;
+
+    });
+    
   }
 
 
@@ -75,14 +115,36 @@ export class ListReimbursementComponent implements OnInit {
   }
   // route to editbookcomponent, inject router into the constructor in order to use  this.router.navigate
   goToEditReimbursement(reimbursementID: number) {
-    this.router.navigate(['edit-Reimbursement',reimbursementID]);
+    this.router.navigate(['edit-reimbursement',reimbursementID]);
   }
 
 
 
 
-  deleteReimbursement(reimbursementID: number) {
-    this.allReimbursements = this.reimbursementService.deleteReimbursement(reimbursementID);
+  deleteEmployee(employeeID: number) {
+  this.reimbursementService.deleteEmployee(employeeID).subscribe((response)=>{
+    console.log(response);
+    this.loadEmployees();
+
+  });
+ 
+  }
+
+  addEmployee(){
+    let addNewEmployee: Employee = {
+      employeeID: this.newEmployee.employeeID,
+      email: this.newEmployee.email,
+      password: this.newEmployee.password,
+      firstName: this.newEmployee.firstName,
+      lastName: this.newEmployee.lastName,
+      phone: this.newEmployee.phone,
+      userName: this.newEmployee.userName,
+      fullName: this.newEmployee.fullName,
+      jobTitle: this.newEmployee.jobTitle,
+      roles: this.newEmployee.roles
+
+    };
+    
   }
 
   addReimbursement() {
@@ -102,6 +164,6 @@ export class ListReimbursementComponent implements OnInit {
       statusID: 0
     };
     this.reimbursementService.addReimbursement(addNewReimbursement);
-    this.allReimbursements = this.reimbursementService.fetchAllReimbursements();
+    this.reimbursementService.fetchAllReimbursements();
   }
 }

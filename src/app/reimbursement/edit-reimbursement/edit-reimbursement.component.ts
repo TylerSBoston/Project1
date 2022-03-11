@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Reimbursement } from '../reimbursement.model';
 import { ReimbursementService } from '../reimbursement.service';
 
+
+
 @Component({
   selector: 'app-edit-reimbursement',
   templateUrl: './edit-reimbursement.component.html',
@@ -35,7 +37,7 @@ export class EditReimbursementComponent implements OnInit {
     //to take out route parameter we need to inject ActivatedRoute
     let reimbursementID: any = this.activatedRoute.snapshot.paramMap.getAll("idParameter")
     //fetch reimbursement from service layer
-    this.newReimbursement = this.reimbursementService.fetchAReimbursement(reimbursementID);
+     this.reimbursementService.fetchAReimbursement(reimbursementID);
   }
 
   test(myEmployeeId: any){
