@@ -54,29 +54,29 @@ fetchAEmployee(employeeId: number): Observable<Employee> {
 
 
 
-fetchAllReimbursements(): Observable<Reimbursement[]>{
-  return this.http.get<Reimbursement[]>("http://localhost:4040/AllEmployees");
-}
+  fetchAllReimbursements(): Observable<Reimbursement[]>{
+    return this.http.get<Reimbursement[]>("http://localhost:4040/AllEmployees");
+  }
 
-deleteReimbursement(reimbursementId: number): Observable<Reimbursement>{
-  return this.http.delete<Reimbursement>("http://localhost:4040/DeleteEmployees/{bid}S"+reimbursementId);
- 
-}
+  deleteReimbursement(reimbursementId: number): Observable<Reimbursement>{
+    return this.http.delete<Reimbursement>("http://localhost:4040/DeleteEmployees/{bid}S"+reimbursementId);
+  
+  }
 
-addReimbursement(reimbursementModel: Reimbursement): Observable<Reimbursement>{
+  addReimbursement(reimbursementModel: Reimbursement): Observable<Reimbursement>{
 
-  return this.http.post<Reimbursement>("http://localhost:4040/AddEmployees", JSON.stringify(reimbursementModel));
+    return this.http.post<Reimbursement>("http://localhost:4040/AddEmployees", JSON.stringify(reimbursementModel));
 
 
-}
+  }
 
-updateReimbursement(reimbursementModel: Reimbursement): Observable<Reimbursement> {
-  return this.http.put<Reimbursement>("http://localhost:4040/UpdateEmployees", JSON.stringify(reimbursementModel));
- 
-}
+  updateReimbursement(reimbursementModel: Reimbursement): Observable<Reimbursement> {
+    return this.http.put<Reimbursement>("http://localhost:4040/UpdateEmployees", JSON.stringify(reimbursementModel));
+  
+  }
 
-fetchAReimbursement(reimbursementId: number): Observable<Reimbursement> {
-  return this.http.get<Reimbursement>("http://localhost:4040/AllEmployees/{bid}"+reimbursementId);
-}
+  fetchAReimbursement(reimbursementId: number): Observable<Reimbursement> {
+    return this.http.get<Reimbursement>("http://localhost:4040/AllEmployees/{bid}"+reimbursementId);
+  }
 
 }

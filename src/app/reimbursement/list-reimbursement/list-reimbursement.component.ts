@@ -115,7 +115,7 @@ export class ListReimbursementComponent implements OnInit {
   }
   // route to editbookcomponent, inject router into the constructor in order to use  this.router.navigate
   goToEditReimbursement(reimbursementID: number) {
-    this.router.navigate(['edit-reimbursement',reimbursementID]);
+    this.router.navigate(['edit-reimbursement']);
   }
 
   updateEmployee(){

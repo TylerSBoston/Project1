@@ -34,15 +34,16 @@ export class LoginComponent implements OnInit {
     let returnEmployee: Employee  = await this.employeeHttpService.validateLogin( this.newEmployee);
     if(returnEmployee.employeeID == 0){
       //invalid user
-    //  this.errorMessage ="Invalid Input!!!"
+      //this.errorMessage ="Invalid Input!!!"
       
     }else{
       //Logged in 
+
       this.errorMessage ="";
-      this.router.navigate(['managerView']);
-      console.log("Logged in ");
+  //    this.router.navigate(['managerView']);
+   //   console.log("Logged in ");
     }
-    this.router.navigate(['managerView']);
+  //  this.router.navigate(['managerView']);
   }
 
 }

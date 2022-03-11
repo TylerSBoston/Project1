@@ -44,7 +44,7 @@ export class EmployeeHttpService {
       this.loggedInEmployee.roles.forEach(async (role) => {
        this.authService.loggedInPermissions.set(role.roleID,role.role);
       });
-      this.authService.storeEmployee( newEmployee);
+      this.authService.storeEmployee( this.loggedInEmployee);
       if (this.loggedInEmployee.employeeID != 0 ){
         //user has logged in as admin
         //store user info in browser and mark that we have logged in
@@ -71,10 +71,11 @@ export class EmployeeHttpService {
         roles: [],
         password: ''
         }
+        this.authService.loggedIn = false;
         this.authService.destroyEmployee();
       }
     });
-    return await newEmployee;
+    return  newEmployee;
   }
 
 

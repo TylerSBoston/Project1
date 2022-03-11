@@ -4,6 +4,7 @@ import { Reimbursement } from '../reimbursement.model';
 import { ReimbursementService } from '../reimbursement.service';
 import { ListReimbursementComponent } from '../list-reimbursement/list-reimbursement.component';
 import { Employee } from 'src/app/employee/employee.model';
+import { AuthService } from 'src/app/employee/auth.service';
 
 
 
@@ -47,15 +48,14 @@ export class EditReimbursementComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute, 
     private reimbursementService: ReimbursementService,
-    private router: Router) { }
+    private router: Router,
+    private auth: AuthService) { }
 
   ngOnInit(): void {
     //to take out route parameter we need to inject ActivatedRoute
-    let employeeID: any = this.activatedRoute.snapshot.paramMap.getAll("idParameter")
-    //fetch reimbursement from service layer
-     this.reimbursementService.fetchAEmployee(employeeID).subscribe((response)=>{
-        this.newEmployee = response;
-     });
+  
+        this.newEmployee =  this.auth.retrieveEmployee();
+
   }
 
   test(myEmployeeId: any){
