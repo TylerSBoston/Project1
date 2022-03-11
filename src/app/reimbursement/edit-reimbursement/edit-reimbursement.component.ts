@@ -53,9 +53,8 @@ export class EditReimbursementComponent implements OnInit {
     //to take out route parameter we need to inject ActivatedRoute
     let employeeID: any = this.activatedRoute.snapshot.paramMap.getAll("idParameter")
     //fetch reimbursement from service layer
-     this.reimbursementService.fetchAEmployee(employeeID).subscribe((response)=>{
-        this.newEmployee = response;
-     });
+    
+     ;
   }
 
   test(myEmployeeId: any){
