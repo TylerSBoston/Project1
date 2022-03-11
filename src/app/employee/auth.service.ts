@@ -17,10 +17,10 @@ export class AuthService {
   }
   
 
-  async retrieveEmployee(): Promise<Employee>{
-    let data: any = await sessionStorage.getItem("employeeInfo");
-    this.loggedIn = await true;
-    return await JSON.parse(await data);
+  retrieveEmployee(): Employee{
+    let data: any = sessionStorage.getItem("employeeInfo");
+    this.loggedIn =  true;
+    return  JSON.parse( data);
     
 
   }
