@@ -118,6 +118,14 @@ export class ListReimbursementComponent implements OnInit {
     this.router.navigate(['edit-reimbursement',reimbursementID]);
   }
 
+  updateEmployee(){
+    this.reimbursementService.updateEmployee(this.oneEmployee).subscribe((response)=>{
+      console.log(response)
+      this.loadEmployees();
+
+    });
+  }
+
   
 
 
